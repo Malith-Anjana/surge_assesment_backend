@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 	mobile:{type: Number, required: false },
 	status:{type:Boolean, default:false},
 	password: { type: String, required: true },
-	accountType: { type: String, required: false },
+	accountType: { type: String, required: false, default:"student" },
 });
 
 userSchema.plugin(AutoIncrement, {inc_field: 'id'});
