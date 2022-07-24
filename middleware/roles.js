@@ -4,7 +4,7 @@ const accountTypeCheck = (role) => {
 		if (req.user.accountType === role) {
 			next();
 		} else {
-			res.status(403).json({ error: true, message: "You are not authorized person" });
+			res.status(403).json({ error: true, message: "You are not authorized person for this service" });
 		}
 	};
 };
