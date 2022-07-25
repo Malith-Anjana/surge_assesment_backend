@@ -5,13 +5,12 @@ const generator = require("generate-password");
 
 const register = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const user = await User.findOne({ _id: req.user.id });
     if (user) {
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       const hashPassword = await bcrypt.hash(req.body.password, salt);
       await user.updateOne({
         ...req.body,
-        _id: req.param.id,
         password: hashPassword,
         status: true,
       });

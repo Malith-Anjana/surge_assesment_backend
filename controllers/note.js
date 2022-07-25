@@ -13,6 +13,7 @@ const addNote = async (req, res) => {
   }
 };
 
+let count = 0
 const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ userId: req.user.id });

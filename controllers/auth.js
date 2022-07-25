@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken");
 const generateToken = (user)=>{
 	return jwt.sign(
 		{id:user._id,
+		 status:user.status,
 		 username: user.email,
 		 accountType:user.accountType
 		}, 
 		process.env.JWTPRIVATEKEY,
-		{expiresIn: '30d'}
+		{expiresIn: '1d'}
 		)
 }
 
@@ -29,7 +30,7 @@ const login =  async (req, res) => {
 
 		if (!user.status){
 			const accessToken = generateToken(user);
-			return res.status(403).json({
+			return res.status(200).json({
 				email:user.email,
 				accessToken: accessToken, 
 				message: "Please register " });
@@ -38,6 +39,7 @@ const login =  async (req, res) => {
 		const accessToken = generateToken(user);
 		res.status(200).json({
 			email:user.email,
+			status: user.status,
 			accountType: user.accountType,
 			accessToken: accessToken, 
 			message: "logged in successfully" });
