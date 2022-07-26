@@ -45,7 +45,7 @@ const signin = async (req, res) => {
       password: hashPassword,
     }).save();
 
-    const url = `${process.env.BASE_URL}users/${user._id}`;
+    const url = `${process.env.BASE_URL}`;
     const credential = { url, randomPass };
     await emailSend(user.email, "Verify Email", credential);
 
@@ -59,7 +59,7 @@ const signin = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-  const pageSize = 6;
+  const pageSize = 3;
   const name = req.query.name || "";
   const email = req.query.email || "";
   const id = req.query.id || "";
@@ -67,9 +67,9 @@ const getUsers = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments({});
     const users = await User.find({
-      name: {$regex: name, $options:"i"},
+      firstName: {$regex: name, $options:"i"},
       email: {$regex:email, $options:"i"},
-      status: true
+      status: true,
     })
     .limit(pageSize)
     .skip(pageSize * currentPage);

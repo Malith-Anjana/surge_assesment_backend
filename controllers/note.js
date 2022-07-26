@@ -13,7 +13,6 @@ const addNote = async (req, res) => {
   }
 };
 
-let count = 0
 const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ userId: req.user.id });
@@ -63,7 +62,7 @@ const updateNote = async(req, res)=>{
             new:true
         });
 
-        res.status(200).json({message: "Updated successfully!"})
+        res.status(200).json({note:updatenote, message: "Updated successfully!"})
     }catch (error) {
         res.status(500).json({ message: "Internal server error!" });
       }
